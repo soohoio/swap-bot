@@ -63,7 +63,7 @@ events:
   - schedule: 
       rate: cron(0 2 ? * MON *)
 ```
-[참고](https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-cloudwatchevents-expressions.html)
+[LAMBDA schedule expression 참고](https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-cloudwatchevents-expressions.html)
 
 3. 파일명을 변경해 줍니다.
 `serverless-sample.yml` -> `serverless.yml`
