@@ -1,0 +1,80 @@
+# Swap-Bot
+Klayswap 기반 자동 토큰 스왑 봇
+
+## Requirements
+- Serverless 프레임워크가 설치되어야 합니다.
+- AWS Credential이 필요합니다.
+
+### Serverless Installation
+```
+npm i -g serverless
+```
+이후 자세한 과정은 아래 링크를 참조해주세요.
+[공식문서-설치](https://www.serverless.com/framework/docs/getting-started)
+[공식문서-AWS연결](https://www.serverless.com/framework/docs/providers/aws/guide/credentials)
+[블로그(Korean)](https://velog.io/@jeffyoun/Serverless-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC-%EC%82%AC%EC%9A%A9%ED%95%B4%EC%84%9C-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0)
+
+## Installation
+
+## Setting
+### 환경변수 설정
+1. `config/config-sample.js`에서 각종 환경변수를 설정해 줍니다.
+  - NODE_URL: KAS 노드 엔드포인트 ('https://node-api.klaytnapi.com/v1/klaytn')
+  - KAS_ACCESS_KEY_ID
+  - KAS_SECRET_ACCESS_KEY
+  - EOA_ADDRESS: 스왑할 지갑의 주소
+  - EOA_PRIVATE_KEY: 스왑할 지갑의 Private Key
+  - FROM_TOKENS: 스왑을 진행할 토큰 목록. (토큰명을 쉼표(,)로 분리하여 작성해 주시기 바랍니다.)
+  - TO_TOKEN: 어떤 토큰으로 스왑을 진행할 것인지 (토큰명)
+  - SLIPPAGE: 슬리피지 제한 [default: 0.003(0.3%)]
+
+2. 파일명을 변경해 줍니다.
+`config-sample.js` -> `config.js`
+
+### 토큰 목록 설정
+`tokens-dev.json`, `tokens-prod.json`에서 토큰 목록을 추가 / 삭제할 수 있습니다.
+반드시 {name: <토큰 Symbol>, address: <컨트랙트 주소>}의 format으로 추가하셔야 하며,
+토큰명은 체인 상의 token symbol을 기입해 주시기 바랍니다.
+
+
+### serverless.yml 설정
+1. (1~3행) org, app, service명을 변경해 줍니다.
+```yml
+org: <YOUR_ORG_NAME>
+app: <YOUR_APP_NAME>
+service: swap-bot
+```
+
+2. (38~39행) 주기적으로 실행될 시간을 설정해 줍니다.
+```
+events:
+  # 매주 월요일 오전 11:00(한국시) 실행 (02:00UTC)
+  - schedule: 
+      rate: cron(0 2 ? * MON *)
+```
+[참고](https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-cloudwatchevents-expressions.html)
+
+3. 파일명을 변경해 줍니다.
+`serverless-sample.yml` -> `serverless.yml`
+
+## Deploy
+서버리스 프레임워크를 통해 봇을 AWS 상에 배포합니다.
+```
+npm run deploy:dev
+```
+```
+npm run deploy:prod
+```
+
+* 봇을 deploy하기 전 내부 파일시스템에 Liquidity Pool의 정보를 최신화하는 작업을 수행합니다.
+따라서 기존의 서버리스에 deploy하는 명령어(serverless deploy)로 deploy 수행 시 liquidity pool이 최신화 되지 않을 수 있습니다.
+* liquidity pool이 추가/변경/삭제되었거나 token 목록을 추가/삭제하는 경우, deploy를 다시 수행해 주시기 바랍니다.
+
+## Manually Swap
+수동으로 swap을 실행합니다.
+```
+npm run swap:dev
+```
+```
+npm run swap:prod
+```

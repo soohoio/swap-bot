@@ -1,0 +1,36 @@
+org: <YOUR_ORG_NAME>
+app: <YOUR_APP_NAME>
+service: swap-bot
+
+frameworkVersion: '3'
+
+custom:
+  STAGE: ${self:provider.stage}
+  CONFIG: ${file(./config/config.js):CONFIG}
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-northeast-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 1024 # optional, in MB, default is 1024
+  timeout: 900 # maximum execution time is 15m
+  environment:
+    STAGE: ${self:provider.stage}
+    # custom 항목 중 CONFIG를 읽어서 스테이지 별로 해당하는 값을 불러옴
+    NODE_URL: ${self:custom.CONFIG.${self:custom.STAGE}.NODE_URL}
+    KAS_ACCESS_KEY_ID: ${self:custom.CONFIG.${self:custom.STAGE}.KAS_ACCESS_KEY_ID}
+    KAS_SECRET_ACCESS_KEY: ${self:custom.CONFIG.${self:custom.STAGE}.KAS_SECRET_ACCESS_KEY}
+    EOA_ADDRESS: ${self:custom.CONFIG.${self:custom.STAGE}.EOA_ADDRESS}
+    EOA_PRIVATE_KEY: ${self:custom.CONFIG.${self:custom.STAGE}.EOA_PRIVATE_KEY}
+    FROM_TOKENS: ${self:custom.CONFIG.${self:custom.STAGE}.FROM_TOKENS}
+    TO_TOKEN: ${self:custom.CONFIG.${self:custom.STAGE}.TO_TOKEN}
+    SLIPPAGE: ${self:custom.CONFIG.${self:custom.STAGE}.SLIPPAGE}
+
+functions:
+  swap:
+    handler: handler.swap
+    events:
+      # 매주 월요일 오전 11:00(한국시) 실행 (02:00UTC)
+      - schedule: 
+          rate: cron(0 2 ? * MON *)

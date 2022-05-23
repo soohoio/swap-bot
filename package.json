@@ -1,0 +1,23 @@
+{
+  "name": "swap-bot",
+  "version": "1.0.0",
+  "description": "Example of creating a function that runs as a cron job using the serverless `schedule` event",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "big.js": "^6.1.1",
+    "caver-js": "^1.8.1",
+    "caver-multicall": "^1.0.5"
+  },
+  "scripts": {
+    "swap:dev": "sls invoke local -s dev -f swap",
+    "predeploy:dev": "cross-env STAGE=dev node ./src/updatePools",
+    "deploy:dev": "sls deploy -s dev",
+    "swap:prod": "sls invoke local -s prod -f swap",
+    "predeploy:prod": "cross-env STAGE=prod node ./src/updatePools",
+    "deploy:prod": "sls deploy -s prod"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

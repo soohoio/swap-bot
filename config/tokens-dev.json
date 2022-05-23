@@ -1,0 +1,46 @@
+[
+  {
+    "name": "KLAY",
+    "address": "0x0000000000000000000000000000000000000000"
+  },
+  {
+    "name": "tAVELK",
+    "address": "0x17dD5DE0499047fac6ad4C7E04bBF5d3bFCd5EFC"
+  },
+  {
+    "name": "MKUSDT",
+    "address": "0xb6267495370a23e4c8e62A788c539E4A37f6Aa12"
+  },
+  {
+    "name": "KSP",
+    "address": "0xe98E0b2bA60a39A98f49D3b25Bb423DB581ca774"
+  },
+  {
+    "name": "MWEMIX",
+    "address": "0xbc1DdAE3C2D302414c7F77210a3aDd0aE868DE8C"
+  },
+  {
+    "name": "MKDAI",
+    "address": "0x5078e4D0dCE9A22b2c8D0c991a3A39CffE607486"
+  },
+  {
+    "name": "MKUSDC",
+    "address": "0x74C2678f15FFc527C268Dd0a296A37041BCA4E1e"
+  },
+  {
+    "name": "MKBUSD",
+    "address": "0x11848102Eff7Ff25990cdA4dbf0eA84465252199"
+  },
+  {
+    "name": "MKETH",
+    "address": "0x6D8Eb3169760d922dDF9A3cfc14f5064E4FC9036"
+  },
+  {
+    "name": "MKXRP",
+    "address": "0x76a92563a9989434ef044faC14a0FDEe06c0DA33"
+  },
+  {
+    "name": "MBORA",
+    "address": "0x3db73d36D2568d45B2aec11B2535e386e7083120"
+  }
+]
