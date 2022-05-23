@@ -78,8 +78,7 @@ npm run deploy:prod
 ```
 
 * 봇을 deploy하기 전 내부 파일시스템에 Liquidity Pool의 정보를 최신화하는 작업을 수행합니다.
-* 
-따라서 기존의 서버리스에 deploy하는 명령어(serverless deploy)로 deploy 수행 시 liquidity pool이 최신화 되지 않을 수 있습니다.
+* 따라서 기존의 서버리스에 deploy하는 명령어(serverless deploy)로 deploy 수행 시 liquidity pool이 최신화 되지 않을 수 있습니다.
 
 
 * liquidity pool이 추가/변경/삭제되었거나 token 목록을 추가/삭제하는 경우, deploy를 다시 수행해 주시기 바랍니다.
