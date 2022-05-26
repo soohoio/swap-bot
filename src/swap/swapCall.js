@@ -1,5 +1,6 @@
-const {caver, KLAYSWAP_ROUTER_ADDRESS, ZERO_ADDRESS, Tokens} = require("../swap.config")
+const {caver, KLAYSWAP_ROUTER_ADDRESS, ZERO_ADDRESS, Tokens, EOA} = require("../swap.config")
 const KlayswapABI = require("../abi/klayswap.abi.json")
+const ERC20ABI = require("../abi/erc20.min.json")
 
 
 /**
@@ -17,41 +18,46 @@ module.exports.swapCall = async function(
     path,
     deadline
 ){
+    const routerContract = new caver.contract(KlayswapABI.KlayswapRouter, KLAYSWAP_ROUTER_ADDRESS)
 
-    const routerContract = caver.contract.create(KlayswapABI.KlayswapRouter, KLAYSWAP_ROUTER_ADDRESS)
     const tokenAddressPath = path.map( p => Tokens[p].address)
-
     const deadlineTimestamp = Math.round(deadline.getTime() / 1000)
 
-    if(tokenAddressPath[0] === ZERO_ADDRESS){
-        const gas = await routerContract
-            .methods
-            .swapExactKlayForTokens(
-                amountIn,
-                amountOutMin,
-                tokenAddressPath,
-                eoa,
-                deadlineTimestamp
-            ).estimateGas({
-                from: eoa,
-                value: amountIn
-            })
-    
-        console.log(gas)
+    const params = [
+        amountIn,
+        amountOutMin,
+        tokenAddressPath,
+        eoa,
+        deadlineTimestamp
+    ]
 
-    } else {
-        const gas = await routerContract
+    let methodName, value;
+
+    if(tokenAddressPath[0] === ZERO_ADDRESS){
+        methodName = 'swapExactKlayForTokens'
+        value = amountIn
+    } else {    // Token
+        await caver.contract.create(ERC20ABI, tokenAddressPath[0])
             .methods
-            .swapExactTokensForTokens(
-                amountIn,
-                amountOutMin,
-                tokenAddressPath,
-                eoa,
-                deadlineTimestamp
-            ).estimateGas({
-                from: eoa
+            .approve(KLAYSWAP_ROUTER_ADDRESS, amountIn)
+            .send({
+                from: EOA,
+                gas: 500000,
             })
-    
-        console.log(gas)
+
+        methodName = 'swapExactTokensForTokens'
+        value = 0;
     }
+
+    const signedTx = await routerContract.send(
+        {
+            from: eoa,
+            gas: 1000000,
+            value
+        },
+        methodName,
+        ...params
+    )
+
+    console.log(`Swap transaction succeed: (tx: ${signedTx.transactionHash})`)
 }

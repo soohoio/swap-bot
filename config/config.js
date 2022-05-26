@@ -21,6 +21,6 @@ module.exports.CONFIG = (serverless) => ({
         FROM_TOKENS: "oETH,WEMIX,KDAI,KSP,KLAY",
         TO_TOKEN: "oUSDT",
         SLIPPAGE: 0.003,
-        RESERVED_KLAY: 1
+        RESERVED_KLAY: 3
     }
 });

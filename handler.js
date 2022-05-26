@@ -1,5 +1,6 @@
-const { swap } = require("./src/swap")
+const { swap, singleSwap } = require("./src/swap")
 
 module.exports = {
-    swap
+    swap,
+    singleSwap
 }

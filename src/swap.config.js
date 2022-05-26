@@ -25,8 +25,8 @@ module.exports.poolMap = module.exports.stage === 'dev'
 
 module.exports.ZERO_ADDRESS = "0x0000000000000000000000000000000000000000"
 module.exports.KLAYSWAP_ROUTER_ADDRESS = {
-    dev: "0x6672074f6D1EF04C0E03Ef7F134bE784638D7A4f",
-    prod: "0x6672074f6D1EF04C0E03Ef7F134bE784638D7A4f",
+    dev: "0x106dD0Fb66a736214da16601eFF3B2dFBfAAB2D8",
+    prod: "0x106dD0Fb66a736214da16601eFF3B2dFBfAAB2D8",
 }[module.exports.stage]
 
 
@@ -40,16 +40,24 @@ const option = {
         },
         {
             name: 'x-chain-id', 
-            value: module.exports.stage === 'dev' ? 1001 : 8217
-        }, //Baobab: 1001
+            value: module.exports.stage === 'dev' ? 1001 : 8217   //Baobab: 1001
+        }, 
     ]
 }
 
 const provider = new Caver.providers.HttpProvider(process.env.NODE_URL, option)
-module.exports.caver = new Caver(provider)
+const caver = new Caver(provider)
+const keyring = caver.wallet.keyring.create(
+    process.env.EOA_ADDRESS, 
+    process.env.EOA_PRIVATE_KEY
+)
+caver.wallet.add(keyring)
+module.exports.caver = caver;
+
 module.exports.multicall = new Multicall({
     network: module.exports.stage === 'dev' ? 'baobab' : 'cypress',
     provider
 })
 
 module.exports.RESERVED_KLAY = +process.env.RESERVED_KLAY
+module.exports.EOA = process.env.EOA_ADDRESS;
