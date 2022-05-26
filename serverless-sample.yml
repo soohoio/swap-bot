@@ -26,6 +26,7 @@ provider:
     FROM_TOKENS: ${self:custom.CONFIG.${self:custom.STAGE}.FROM_TOKENS}
     TO_TOKEN: ${self:custom.CONFIG.${self:custom.STAGE}.TO_TOKEN}
     SLIPPAGE: ${self:custom.CONFIG.${self:custom.STAGE}.SLIPPAGE}
+    RESERVED_KLAY: ${self:custom.CONFIG.${self:custom.STAGE}.RESERVED_KLAY}
 
 functions:
   swap:

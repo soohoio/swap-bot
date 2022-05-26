@@ -21,6 +21,7 @@ module.exports.swapCall = async function(
     const routerContract = caver.contract.create(KlayswapABI.KlayswapRouter, KLAYSWAP_ROUTER_ADDRESS)
     const tokenAddressPath = path.map( p => Tokens[p].address)
 
+    const deadlineTimestamp = Math.round(deadline.getTime() / 1000)
 
     if(tokenAddressPath[0] === ZERO_ADDRESS){
         const gas = await routerContract
@@ -30,15 +31,13 @@ module.exports.swapCall = async function(
                 amountOutMin,
                 tokenAddressPath,
                 eoa,
-                Math.round(deadline.getTime() / 1000)
+                deadlineTimestamp
             ).estimateGas({
                 from: eoa,
                 value: amountIn
             })
     
         console.log(gas)
-
-    } else if(tokenAddressPath[tokenAddressPath.length-1] === ZERO_ADDRESS){
 
     } else {
         const gas = await routerContract
@@ -48,7 +47,7 @@ module.exports.swapCall = async function(
                 amountOutMin,
                 tokenAddressPath,
                 eoa,
-                deadline.getTime() / 1000
+                deadlineTimestamp
             ).estimateGas({
                 from: eoa
             })

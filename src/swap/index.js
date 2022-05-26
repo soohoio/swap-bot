@@ -43,8 +43,10 @@ module.exports.swap = async function(){
         }
 
         const {liquidities, fees} = await getLiquidityAndFee()
+
+        const amount = Big(balance).div(10).round()
     
-        const output = calcPaths(Big(balance), paths, liquidities, fees);
+        const output = calcPaths(amount, paths, liquidities, fees);
         const now = new Date()
         // 3분 뒤
         now.setMinutes(now.getMinutes()+3)
@@ -52,7 +54,7 @@ module.exports.swap = async function(){
         // SWAP CALL 손보기!
         await swapCall(
             EOA,
-            ""+(+balance / 10),
+            amount.toString(),
             Big(output[0].amount).mul(1 - +process.env.SLIPPAGE).round().toString(),
             output[0].path,
             now
