@@ -1,4 +1,4 @@
-const { caver,Tokens, ZERO_ADDRESS } = require('../swap.config')
+const { caver,Tokens, ZERO_ADDRESS, RESERVED_KLAY } = require('../swap.config')
 const { searchPaths } = require('./searchPaths')
 const { getLiquidityAndFee } = require('./getLiquidityAndFee')
 const { calcPaths } = require('./calcPaths')
@@ -13,7 +13,8 @@ module.exports.swap = async function(){
         Tokens,
         process.env.FROM_TOKENS,
         process.env.TO_TOKEN,
-        process.env.SLIPPAGE
+        process.env.SLIPPAGE,
+        process.env.RESERVED_KLAY,
     )
 
     const EOA = process.env.EOA_ADDRESS;
@@ -44,7 +45,7 @@ module.exports.swap = async function(){
 
         const {liquidities, fees} = await getLiquidityAndFee()
 
-        const amount = Big(balance).div(10).round()
+        const amount = Big(balance).sub(RESERVED_KLAY)
     
         const output = calcPaths(amount, paths, liquidities, fees);
         const now = new Date()

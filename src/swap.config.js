@@ -51,3 +51,5 @@ module.exports.multicall = new Multicall({
     network: module.exports.stage === 'dev' ? 'baobab' : 'cypress',
     provider
 })
+
+module.exports.RESERVED_KLAY = +process.env.RESERVED_KLAY
