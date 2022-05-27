@@ -1,7 +1,7 @@
 {
   "name": "swap-bot",
   "version": "1.0.0",
-  "description": "Example of creating a function that runs as a cron job using the serverless `schedule` event",
+  "description": "Klaytn Token auto swap bot",
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -11,11 +11,12 @@
   },
   "scripts": {
     "swap:dev": "sls invoke local -s dev -f swap",
-    "predeploy:dev": "cross-env STAGE=dev node ./src/updatePools",
-    "deploy:dev": "sls deploy -s dev",
     "swap:prod": "sls invoke local -s prod -f swap",
+    "predeploy:dev": "cross-env STAGE=dev node ./src/updatePools",
     "predeploy:prod": "cross-env STAGE=prod node ./src/updatePools",
+    "deploy:dev": "sls deploy -s dev",
     "deploy:prod": "sls deploy -s prod",
+    "singleSwap:dev": "sls invoke local -s dev -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\"",
     "singleSwap:prod": "sls invoke local -s prod -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\""
   },
   "devDependencies": {
