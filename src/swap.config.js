@@ -47,11 +47,13 @@ const option = {
 
 const provider = new Caver.providers.HttpProvider(process.env.NODE_URL, option)
 const caver = new Caver(provider)
-const keyring = caver.wallet.keyring.create(
-    process.env.EOA_ADDRESS, 
-    process.env.EOA_PRIVATE_KEY
-)
-caver.wallet.add(keyring)
+if(process.env.EOA_ADDRESS && process.env.EOA_PRIVATE_KEY){
+    const keyring = caver.wallet.keyring.create(
+        process.env.EOA_ADDRESS, 
+        process.env.EOA_PRIVATE_KEY
+    )
+    caver.wallet.add(keyring)
+}
 module.exports.caver = caver;
 
 module.exports.multicall = new Multicall({
