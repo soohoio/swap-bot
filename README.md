@@ -91,3 +91,11 @@ npm run swap:dev
 ```
 npm run swap:prod
 ```
+
+## 보내는 토큰 / 받는 토큰 / 보내는 토큰 양을 지정하여 스왑 함수 실행
+```
+from=oUSDT to=KDAI amount=500000 npm run singleSwap:prod
+```
+```
+from=KLEVA to=oUSDT amount=100000000000 npm run singleSwap:dev
+```

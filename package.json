@@ -15,7 +15,8 @@
     "deploy:dev": "sls deploy -s dev",
     "swap:prod": "sls invoke local -s prod -f swap",
     "predeploy:prod": "cross-env STAGE=prod node ./src/updatePools",
-    "deploy:prod": "sls deploy -s prod"
+    "deploy:prod": "sls deploy -s prod",
+    "singleSwap:prod": "sls invoke local -s prod -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\""
   },
   "devDependencies": {
     "cross-env": "^7.0.3"

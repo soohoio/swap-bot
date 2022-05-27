@@ -16,6 +16,14 @@ module.exports.singleSwap = async function(){
     const to = process.env.to
     const amount = process.env.amount
 
+    console.log('asdads')
+    console.log(from)
+    console.log(to)
+    console.log(amount)
+
+    if(!from || !to || !amount)
+        throw Error('Please check the environment variable [from, to, amount] again.')
+
 
     // 1. Get Token Index
     const fromIndex  = Tokens.findIndex(t => t.name === from)
@@ -35,11 +43,11 @@ module.exports.singleSwap = async function(){
         balance = await caver.klay.getBalance(EOA)
     }
 
-    console.log(balance)
+    console.log(`Your Balance: ${balance} ${from}`)
 
 
     if(+amount > +balance)
         throw Error("Insufficient balance")
 
-    await swap(fromIndex, toIndex, Big(balance))
+    await swap(fromIndex, toIndex, Big(amount))
 }

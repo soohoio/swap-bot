@@ -37,27 +37,39 @@ module.exports.swapCall = async function(
         methodName = 'swapExactKlayForTokens'
         value = amountIn
     } else {    // Token
-        await caver.contract.create(ERC20ABI, tokenAddressPath[0])
-            .methods
-            .approve(KLAYSWAP_ROUTER_ADDRESS, amountIn)
-            .send({
-                from: EOA,
-                gas: 500000,
-            })
+        // approve first
+        try {
+            await caver.contract.create(ERC20ABI, tokenAddressPath[0])
+                .methods
+                .approve(KLAYSWAP_ROUTER_ADDRESS, amountIn)
+                .send({
+                    from: EOA,
+                    gas: 500000,
+                })
+        } catch (error) {
+            console.log(`Failed to approve: ${Tokens[tokenAddressPath[0]].name}`)
+            return;
+        }
 
         methodName = 'swapExactTokensForTokens'
         value = 0;
     }
 
-    const signedTx = await routerContract.send(
-        {
-            from: eoa,
-            gas: 1000000,
-            value
-        },
-        methodName,
-        ...params
-    )
+    try {
+        const signedTx = await routerContract.send(
+            {
+                from: eoa,
+                gas: 1000000,
+                value
+            },
+            methodName,
+            ...params
+        )
+        console.log(`Swap transaction succeed: (tx: ${signedTx.transactionHash})`)
+    } catch (error) {
+        console.log(`Failed to swap: ${Tokens[tokenAddressPath[0]].name}. Slippage may have occurred due to price fluctuations.`)
+        return;
+    }
 
-    console.log(`Swap transaction succeed: (tx: ${signedTx.transactionHash})`)
+
 }
