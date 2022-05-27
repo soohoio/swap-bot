@@ -11,7 +11,7 @@ Klayswap 기반 자동 토큰 스왑 봇
 
 ### Serverless Installation
 ```
-npm i -g serverless
+npm install -g serverless
 ```
 이후 자세한 과정은 아래 링크를 참조해주세요.
 
@@ -24,7 +24,7 @@ npm i -g serverless
 git clone https://github.com/soohoio/swap-bot
 ```
 ```
-npm i
+npm install
 ```
 
 
@@ -43,7 +43,7 @@ npm i
     - Swap을 진행하기 위해서는 가스비로 사용될 KLAY가 필요하기 때문에, 최소 가스비 이상의 KLAY를 지갑에 남겨두어야 합니다.
     만약 RESERVED_KLAY값이 가스비(약 0.1~0.3KLAY)보다 작다면 스왑 컨트랙트 실행에 실패할 수 있습니다.
 
-  * 본 Bot은 FROM_TOKEN에 해당하는 잔고 전체(KLAY 제외)를 TO_TOKEN으로 스왑합니다.
+  > 본 Bot은 FROM_TOKEN에 해당하는 잔고 전체(KLAY 제외)를 TO_TOKEN으로 스왑합니다.
   만약 `FROM_TOKEN=KDAI,oETH,KLAY` 이고 `TO_TOKEN=oUSDT` 라면, swap 실행 시 지갑 내 KDAI와 oETH 토큰 전량이 oUSDT로 스왑되고, KLAY는 (RESERVED_KLAY - 가스비)만큼만 남게 됩니다.
 
 2. 파일명을 변경해 줍니다.
@@ -87,11 +87,11 @@ npm run deploy:dev
 npm run deploy:prod
 ```
 
-* 봇을 deploy하기 전 내부 파일시스템에 Liquidity Pool의 정보를 최신화하는 작업을 수행합니다.
-* 따라서 기존의 서버리스에 deploy하는 명령어(serverless deploy)로 deploy 수행 시 liquidity pool이 최신화 되지 않을 수 있습니다.
+> 봇을 deploy하기 전 내부 파일시스템에 Liquidity Pool의 정보를 최신화하는 작업을 수행합니다.
+> 따라서 기존의 서버리스에 deploy하는 명령어(serverless deploy)로 deploy 수행 시 liquidity pool이 최신화 되지 않을 수 있습니다.
 
 
-* liquidity pool이 추가/변경/삭제되었거나 token 목록을 추가/삭제하는 경우, deploy를 다시 수행해 주시기 바랍니다.
+> liquidity pool이 추가/변경/삭제되었거나 token 목록을 추가/삭제하는 경우, deploy를 다시 수행해 주시기 바랍니다.
 
 ## Manually Swap
 수동으로 swap을 실행합니다.
