@@ -26,7 +26,7 @@ git clone https://github.com/soohoio/swap-bot
 ```
 npm install
 ```
----
+
 ## Setting
 ### 환경변수 설정
 1. `config/config-sample.js`에서 각종 환경변수를 설정해 줍니다.
@@ -93,7 +93,7 @@ npm run deploy:prod
 
 > liquidity pool이 추가/변경/삭제되었거나 token 목록을 추가/삭제하는 경우, deploy를 다시 수행해 주시기 바랍니다.
 
----
+
 
 ## Manually Swap
 수동으로 swap을 실행합니다.
@@ -103,7 +103,7 @@ npm run swap:dev
 ```
 npm run swap:prod
 ```
----
+
 
 ## 보내는 토큰 / 받는 토큰 / 보내는 토큰 양을 지정하여 스왑 함수 실행
 ```
