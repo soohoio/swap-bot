@@ -34,15 +34,15 @@ npm install
 ## Setting
 ### 환경변수 설정
 1. `config/config-sample.js`에서 각종 환경변수를 설정해 줍니다.
-  - NODE_URL: KAS 노드 엔드포인트 ('https://node-api.klaytnapi.com/v1/klaytn')
-  - KAS_ACCESS_KEY_ID
-  - KAS_SECRET_ACCESS_KEY
-  - EOA_ADDRESS: 스왑할 지갑의 주소
-  - EOA_PRIVATE_KEY: 스왑할 지갑의 Private Key
-  - FROM_TOKENS: 스왑을 진행할 토큰 목록. (토큰명을 쉼표(,)로 분리하여 작성해 주시기 바랍니다.)
-  - TO_TOKEN: 어떤 토큰으로 스왑을 진행할 것인지 (토큰명)
-  - SLIPPAGE: 슬리피지 제한 [default: 0.003(0.3%)]
-  - RESERVED_KLAY: 스왑 진행 시 남겨둘 KLAY 양(단위: KLAY)
+  - **NODE_URL** : KAS 노드 엔드포인트 ('https://node-api.klaytnapi.com/v1/klaytn')
+  - **KAS_ACCESS_KEY_ID**
+  - **KAS_SECRET_ACCESS_KEY**
+  - **EOA_ADDRESS** : 스왑할 지갑의 주소
+  - **EOA_PRIVATE_KEY** : 스왑할 지갑의 Private Key
+  - **FROM_TOKENS** : 스왑을 진행할 토큰 목록. (토큰명을 쉼표(,)로 분리하여 작성해 주시기 바랍니다.)
+  - **TO_TOKEN** : 어떤 토큰으로 스왑을 진행할 것인지 (토큰명)
+  - **SLIPPAGE** : 슬리피지 제한 [default: 0.003(0.3%)]
+  - **RESERVED_KLAY** : 스왑 진행 시 남겨둘 KLAY 양(단위: KLAY)
     - Swap을 진행하기 위해서는 가스비로 사용될 KLAY가 필요하기 때문에, 최소 가스비 이상의 KLAY를 지갑에 남겨두어야 합니다.
     만약 RESERVED_KLAY값이 가스비(약 0.1~0.3KLAY)보다 작다면 스왑 컨트랙트 실행에 실패할 수 있습니다.
 
