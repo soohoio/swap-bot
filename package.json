@@ -10,14 +10,18 @@
     "caver-multicall": "^1.0.5"
   },
   "scripts": {
-    "swap:dev": "sls invoke local -s dev -f swap",
-    "swap:prod": "sls invoke local -s prod -f swap",
-    "predeploy:dev": "cross-env STAGE=dev node ./src/updatePools",
-    "predeploy:prod": "cross-env STAGE=prod node ./src/updatePools",
+    "update:dev": "cross-env STAGE=dev node ./src/updatePools",
+    "update:prod": "cross-env STAGE=prod node ./src/updatePools",
+    "swap:dev": "sls invoke -s dev -f swap",
+    "swap:prod": "sls invoke -s prod -f swap",
+    "predeploy:dev": "npm run update:dev",
+    "predeploy:prod": "npm run update:prod",
     "deploy:dev": "sls deploy -s dev",
     "deploy:prod": "sls deploy -s prod",
-    "singleSwap:dev": "sls invoke local -s dev -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\"",
-    "singleSwap:prod": "sls invoke local -s prod -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\""
+    "singleSwap:dev": "sls invoke -s dev -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\"",
+    "singleSwap:prod": "sls invoke -s prod -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\"",
+    "singleSwap:dev:local": "sls invoke local -s dev -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\"",
+    "singleSwap:prod:local": "sls invoke local -s prod -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\""
   },
   "devDependencies": {
     "cross-env": "^7.0.3"
