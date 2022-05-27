@@ -1,15 +1,19 @@
 # Swap-Bot
-Klayswap 기반 자동 토큰 스왑 봇
+Klayswap 기반 자동 토큰 스왑 봇  
 
-## 사용 목적
-클레이튼 지갑 내 KLAY 및 각종 토큰 자산을 주기적으로 특정 코인으로 스왑합니다.
-예를 들면, 매출 EOA에 쌓이는 다양한 종류의 토큰을 테더로 자동스왑하여 통합할 때 사용할 수 있습니다.
 
-## Requirements
+# 사용 목적
+클레이튼 지갑 내 KLAY 및 각종 토큰 자산을 주기적으로 특정 코인으로 스왑합니다.  
+예를 들면, 매출 EOA에 쌓이는 다양한 종류의 토큰을 테더로 자동스왑하여 통합할 때 사용할 수 있습니다.  
+
+
+
+
+# Requirements
 - Serverless 프레임워크가 설치되어야 합니다.
 - AWS Credential이 필요합니다.
 
-### Serverless Installation
+## Serverless Installation
 ```
 npm install -g serverless
 ```
@@ -27,36 +31,36 @@ git clone https://github.com/soohoio/swap-bot
 npm install
 ```
 
-## Setting
-### 환경변수 설정
+# Setting
+## 환경변수 설정
 1. `config/config-sample.js`에서 각종 환경변수를 설정해 줍니다.
-  - NODE_URL: KAS 노드 엔드포인트 ('https://node-api.klaytnapi.com/v1/klaytn')
-  - KAS_ACCESS_KEY_ID
-  - KAS_SECRET_ACCESS_KEY
-  - EOA_ADDRESS: 스왑할 지갑의 주소
-  - EOA_PRIVATE_KEY: 스왑할 지갑의 Private Key
-  - FROM_TOKENS: 스왑을 진행할 토큰 목록. (토큰명을 쉼표(,)로 분리하여 작성해 주시기 바랍니다.)
-  - TO_TOKEN: 어떤 토큰으로 스왑을 진행할 것인지 (토큰명)
-  - SLIPPAGE: 슬리피지 제한 [default: 0.003(0.3%)]
-  - RESERVED_KLAY: 스왑 진행 시 남겨둘 KLAY 양(단위: KLAY)
+  - **NODE_URL** : KAS 노드 엔드포인트 ('https://node-api.klaytnapi.com/v1/klaytn')
+  - **KAS_ACCESS_KEY_ID**
+  - **KAS_SECRET_ACCESS_KEY**
+  - **EOA_ADDRESS** : 스왑할 지갑의 주소
+  - **EOA_PRIVATE_KEY** : 스왑할 지갑의 Private Key
+  - **FROM_TOKENS** : 스왑을 진행할 토큰 목록. (토큰명을 쉼표(,)로 분리하여 작성해 주시기 바랍니다.)
+  - **TO_TOKEN** : 어떤 토큰으로 스왑을 진행할 것인지 (토큰명)
+  - **SLIPPAGE** : 슬리피지 제한 [default: 0.003(0.3%)]
+  - **RESERVED_KLAY** : 스왑 진행 시 남겨둘 KLAY 양(단위: KLAY)
     - Swap을 진행하기 위해서는 가스비로 사용될 KLAY가 필요하기 때문에, 최소 가스비 이상의 KLAY를 지갑에 남겨두어야 합니다.
-    만약 RESERVED_KLAY값이 가스비(약 0.1~0.3KLAY)보다 작다면 스왑 컨트랙트 실행에 실패할 수 있습니다.
+    - 만약 RESERVED_KLAY값이 가스비(약 0.1~0.3KLAY)보다 작다면 스왑 컨트랙트 실행에 실패할 수 있습니다.
 
-  > 본 Bot은 FROM_TOKEN에 해당하는 **잔고 전체(KLAY 제외)**를 TO_TOKEN으로 스왑합니다.  
-  만약 `FROM_TOKEN=KDAI,oETH,KLAY` 이고 `TO_TOKEN=oUSDT` 라면, swap 실행 시 지갑 내 KDAI와 oETH **토큰 전량**이 oUSDT로 스왑되고, KLAY는
-  **(RESERVED_KLAY - 가스비)** 만큼만 남게 됩니다.
+  > 본 Bot은 FROM_TOKEN에 해당하는 **잔고 전체(KLAY 제외)** 를 TO_TOKEN으로 스왑합니다.  
+  만약 `FROM_TOKEN=KDAI,oETH,KLAY` 이고 `TO_TOKEN=oUSDT` 라면, swap 실행 시 지갑 내 KDAI와 oETH **토큰 전량** 이 oUSDT로 스왑되고,  
+  KLAY는 **(RESERVED_KLAY - 가스비)** 만큼만 남게 됩니다.
 
 2. 파일명을 변경해 줍니다.
 
 `config-sample.js` -> `config.js`
 
 
-### 토큰 목록 설정
+## 토큰 목록 설정
 `tokens-dev.json`, `tokens-prod.json`에서 토큰 목록을 추가 / 삭제할 수 있습니다.  
 반드시 `{name: <토큰 Symbol>, address: <컨트랙트 주소>}`의 format으로 추가하셔야 하며,
 토큰명은 체인 상의 token symbol을 기입해 주시기 바랍니다.
 
-### serverless.yml 설정
+## serverless.yml 설정
 1. (1~3행) org, app, service명을 변경해 줍니다.
 ```yml
 org: <YOUR_ORG_NAME>
@@ -78,7 +82,7 @@ events:
 `serverless-sample.yml` -> `serverless.yml`
 
 
-## Deploy
+# Deploy
 서버리스 프레임워크를 통해 봇을 AWS 상에 배포합니다.
 ```
 npm run deploy:dev
@@ -92,10 +96,7 @@ npm run deploy:prod
 > liquidity pool이 추가/변경/삭제되었거나 token 목록을 추가/삭제하는 경우, deploy를 다시 수행해 주시기 바랍니다.  
 
 
-
-
-
-## Manually Swap
+# Manually Swap
 수동으로 swap을 실행합니다.
 ```
 npm run swap:dev
@@ -104,8 +105,7 @@ npm run swap:dev
 npm run swap:prod
 ```
 
-
-## 보내는 토큰 / 받는 토큰 / 보내는 토큰 양을 지정하여 스왑 함수 실행
+# 보내는 토큰 / 받는 토큰 / 보내는 토큰 양을 지정하여 스왑 함수 실행
 singleSwap 함수를 실행하기 전에 반드시 updatePools을 진행해야 합니다. (빌드 시 자동으로 진행됩니다.)
 ```
 from=oUSDT to=KDAI amount=500000 npm run singleSwap:prod
