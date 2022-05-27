@@ -27,6 +27,9 @@ provider:
     TO_TOKEN: ${self:custom.CONFIG.${self:custom.STAGE}.TO_TOKEN}
     SLIPPAGE: ${self:custom.CONFIG.${self:custom.STAGE}.SLIPPAGE}
     RESERVED_KLAY: ${self:custom.CONFIG.${self:custom.STAGE}.RESERVED_KLAY}
+    from: ${param:from,''}
+    to: ${param:to,''}
+    amount: ${param:amount,''}
 
 functions:
   swap:
@@ -35,3 +38,5 @@ functions:
       # 매주 월요일 오전 11:00(한국시) 실행 (02:00UTC)
       - schedule: 
           rate: cron(0 2 ? * MON *)
+  singleSwap:
+    handler: handler.singleSwap

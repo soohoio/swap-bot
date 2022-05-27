@@ -1,6 +1,10 @@
 # Swap-Bot
 Klayswap 기반 자동 토큰 스왑 봇
 
+## 사용 목적
+클레이튼 지갑 내 KLAY 및 각종 토큰 자산을 주기적으로 특정 코인으로 스왑합니다.
+예를 들면, 매출 EOA에 쌓이는 다양한 종류의 토큰을 테더로 자동스왑하여 통합할 때 사용할 수 있습니다.
+
 ## Requirements
 - Serverless 프레임워크가 설치되어야 합니다.
 - AWS Credential이 필요합니다.
@@ -11,11 +15,9 @@ npm i -g serverless
 ```
 이후 자세한 과정은 아래 링크를 참조해주세요.
 
-[공식문서-설치](https://www.serverless.com/framework/docs/getting-started)
-
-[공식문서-AWS연결](https://www.serverless.com/framework/docs/providers/aws/guide/credentials)
-
-[블로그(Korean)](https://velog.io/@jeffyoun/Serverless-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC-%EC%82%AC%EC%9A%A9%ED%95%B4%EC%84%9C-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0)
+- [공식문서-설치](https://www.serverless.com/framework/docs/getting-started)
+- [공식문서-AWS연결](https://www.serverless.com/framework/docs/providers/aws/guide/credentials)
+- [블로그(Korean)](https://velog.io/@jeffyoun/Serverless-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC-%EC%82%AC%EC%9A%A9%ED%95%B4%EC%84%9C-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0)
 
 ## Installation
 ```
@@ -37,14 +39,21 @@ npm i
   - FROM_TOKENS: 스왑을 진행할 토큰 목록. (토큰명을 쉼표(,)로 분리하여 작성해 주시기 바랍니다.)
   - TO_TOKEN: 어떤 토큰으로 스왑을 진행할 것인지 (토큰명)
   - SLIPPAGE: 슬리피지 제한 [default: 0.003(0.3%)]
+  - RESERVED_KLAY: 스왑 진행 시 남겨둘 KLAY 양(단위: KLAY)
+    - Swap을 진행하기 위해서는 가스비로 사용될 KLAY가 필요하기 때문에, 최소 가스비 이상의 KLAY를 지갑에 남겨두어야 합니다.
+    만약 RESERVED_KLAY값이 가스비(약 0.1~0.3KLAY)보다 작다면 스왑 컨트랙트 실행에 실패할 수 있습니다.
+
+  * 본 Bot은 FROM_TOKEN에 해당하는 잔고 전체(KLAY 제외)를 TO_TOKEN으로 스왑합니다.
+  만약 `FROM_TOKEN=KDAI,oETH,KLAY` 이고 `TO_TOKEN=oUSDT` 라면, swap 실행 시 지갑 내 KDAI와 oETH 토큰 전량이 oUSDT로 스왑되고, KLAY는 (RESERVED_KLAY - 가스비)만큼만 남게 됩니다.
 
 2. 파일명을 변경해 줍니다.
+
 `config-sample.js` -> `config.js`
 
 ### 토큰 목록 설정
 `tokens-dev.json`, `tokens-prod.json`에서 토큰 목록을 추가 / 삭제할 수 있습니다.
 
-반드시 {name: <토큰 Symbol>, address: <컨트랙트 주소>}의 format으로 추가하셔야 하며,
+반드시 `{name: <토큰 Symbol>, address: <컨트랙트 주소>}`의 format으로 추가하셔야 하며,
 토큰명은 체인 상의 token symbol을 기입해 주시기 바랍니다.
 
 
@@ -66,6 +75,7 @@ events:
 [LAMBDA schedule expression 참고](https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-cloudwatchevents-expressions.html)
 
 3. 파일명을 변경해 줍니다.
+
 `serverless-sample.yml` -> `serverless.yml`
 
 ## Deploy

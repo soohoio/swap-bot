@@ -47,7 +47,7 @@ module.exports.swapCall = async function(
                     gas: 500000,
                 })
         } catch (error) {
-            console.log(`Failed to approve: ${Tokens[tokenAddressPath[0]].name}`)
+            console.log(`Failed to approve: ${Tokens[path[0]].name}`)
             return;
         }
 
@@ -67,7 +67,8 @@ module.exports.swapCall = async function(
         )
         console.log(`Swap transaction succeed: (tx: ${signedTx.transactionHash})`)
     } catch (error) {
-        console.log(`Failed to swap: ${Tokens[tokenAddressPath[0]].name}. Slippage may have occurred due to price fluctuations.`)
+
+        console.log(`Failed to swap: ${Tokens[path[0]].name}. Slippage may have occurred due to price fluctuations.`)
         return;
     }
 
