@@ -49,14 +49,12 @@ npm install
 2. 파일명을 변경해 줍니다.
 
 `config-sample.js` -> `config.js`
----
 
 
 ### 토큰 목록 설정
 `tokens-dev.json`, `tokens-prod.json`에서 토큰 목록을 추가 / 삭제할 수 있습니다.  
 반드시 `{name: <토큰 Symbol>, address: <컨트랙트 주소>}`의 format으로 추가하셔야 하며,
 토큰명은 체인 상의 token symbol을 기입해 주시기 바랍니다.
----
 
 ### serverless.yml 설정
 1. (1~3행) org, app, service명을 변경해 줍니다.
@@ -78,7 +76,7 @@ events:
 3. 파일명을 변경해 줍니다.
 
 `serverless-sample.yml` -> `serverless.yml`
----
+
 
 ## Deploy
 서버리스 프레임워크를 통해 봇을 AWS 상에 배포합니다.
