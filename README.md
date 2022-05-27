@@ -2,18 +2,18 @@
 Klayswap 기반 자동 토큰 스왑 봇  
 
 
-## 사용 목적
+# 사용 목적
 클레이튼 지갑 내 KLAY 및 각종 토큰 자산을 주기적으로 특정 코인으로 스왑합니다.  
 예를 들면, 매출 EOA에 쌓이는 다양한 종류의 토큰을 테더로 자동스왑하여 통합할 때 사용할 수 있습니다.  
 
 
 
 
-## Requirements
+# Requirements
 - Serverless 프레임워크가 설치되어야 합니다.
 - AWS Credential이 필요합니다.
 
-### Serverless Installation
+## Serverless Installation
 ```
 npm install -g serverless
 ```
@@ -31,8 +31,8 @@ git clone https://github.com/soohoio/swap-bot
 npm install
 ```
 
-## Setting
-### 환경변수 설정
+# Setting
+## 환경변수 설정
 1. `config/config-sample.js`에서 각종 환경변수를 설정해 줍니다.
   - **NODE_URL** : KAS 노드 엔드포인트 ('https://node-api.klaytnapi.com/v1/klaytn')
   - **KAS_ACCESS_KEY_ID**
@@ -55,12 +55,12 @@ npm install
 `config-sample.js` -> `config.js`
 
 
-### 토큰 목록 설정
+## 토큰 목록 설정
 `tokens-dev.json`, `tokens-prod.json`에서 토큰 목록을 추가 / 삭제할 수 있습니다.  
 반드시 `{name: <토큰 Symbol>, address: <컨트랙트 주소>}`의 format으로 추가하셔야 하며,
 토큰명은 체인 상의 token symbol을 기입해 주시기 바랍니다.
 
-### serverless.yml 설정
+## serverless.yml 설정
 1. (1~3행) org, app, service명을 변경해 줍니다.
 ```yml
 org: <YOUR_ORG_NAME>
@@ -82,7 +82,7 @@ events:
 `serverless-sample.yml` -> `serverless.yml`
 
 
-## Deploy
+# Deploy
 서버리스 프레임워크를 통해 봇을 AWS 상에 배포합니다.
 ```
 npm run deploy:dev
@@ -96,10 +96,7 @@ npm run deploy:prod
 > liquidity pool이 추가/변경/삭제되었거나 token 목록을 추가/삭제하는 경우, deploy를 다시 수행해 주시기 바랍니다.  
 
 
-
-
-
-## Manually Swap
+# Manually Swap
 수동으로 swap을 실행합니다.
 ```
 npm run swap:dev
@@ -108,8 +105,7 @@ npm run swap:dev
 npm run swap:prod
 ```
 
-
-## 보내는 토큰 / 받는 토큰 / 보내는 토큰 양을 지정하여 스왑 함수 실행
+# 보내는 토큰 / 받는 토큰 / 보내는 토큰 양을 지정하여 스왑 함수 실행
 singleSwap 함수를 실행하기 전에 반드시 updatePools을 진행해야 합니다. (빌드 시 자동으로 진행됩니다.)
 ```
 from=oUSDT to=KDAI amount=500000 npm run singleSwap:prod
