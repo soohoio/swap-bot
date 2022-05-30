@@ -77,7 +77,7 @@ serverless
 ```
  
 org와 app name 설정 이후 [Serverless 대시보드](https://app.serverless.com/)에서 app name이 정상적으로 등록되었는지 확인해 주세요.  
-org와 application 이름 등록 후 아래와 같이 지금 deploy할 것인지 묻는데요, 일단 deploy하지 마시고 아래 설정을 모두 마치신 후 __ 의 절차를 따라 주시기 바랍니다.
+org와 application 이름 등록 후 아래와 같이 지금 deploy할 것인지 묻는데요, 일단 deploy하지 마시고 아래 설정을 모두 마치신 후 [Deploy](https://github.com/soohoio/swap-bot/blob/main/README.md#deploy) 의 절차를 따라 주시기 바랍니다.
 ```
 Do you want to deploy now?
 ```
