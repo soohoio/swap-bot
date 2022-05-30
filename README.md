@@ -7,8 +7,6 @@ Klayswap 기반 자동 토큰 스왑 봇
 예를 들면, 매출 EOA에 쌓이는 다양한 종류의 토큰을 테더로 자동스왑하여 통합할 때 사용할 수 있습니다.  
 
 
-
-
 # Requirements
 - Serverless 프레임워크가 설치되어야 합니다.
 - AWS Credential이 필요합니다.
@@ -60,30 +58,39 @@ npm install
 반드시 `{name: <토큰 Symbol>, address: <컨트랙트 주소>}`의 format으로 추가하셔야 하며,
 토큰명은 체인 상의 token symbol을 기입해 주시기 바랍니다.
 
-## serverless.yml 설정
-1. (1~3행) org, app, service명을 변경해 줍니다.
-```yml
-org: <YOUR_ORG_NAME>
-app: <YOUR_APP_NAME>
-service: swap-bot
+## serverless 설정
+1. 먼저 org와 application name을 설정해 주어야 합니다.  
+  swap-bot 루트 폴더로 이동 후 아래 명령어를 실행합니다.
 ```
+serverless
+```
+위 명령어를 실행하면 아래 질문들에 org와 application 이름을 자유롭게 입력해 주시면 됩니다.
+```
+- What org do you want to add this service to?
+- What application do you want to add this to?
+(- What do you want to name this application?)
+```
+ 
+org와 app name 설정 이후 [Serverless 대시보드](https://app.serverless.com/)에서 app name이 정상적으로 등록되었는지 확인해 주세요.
 
-2. (38~39행) 주기적으로 실행될 시간을 설정해 줍니다.
+
+
+2. (serverless-sample.yml 37~38행) Swap 봇이 주기적으로 실행될 시간을 설정해 줍니다.
 ```
 events:
   # 매주 월요일 오전 11:00(한국시) 실행 (02:00UTC)
   - schedule: 
       rate: cron(0 2 ? * MON *)
 ```
-[LAMBDA schedule expression 참고](https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-cloudwatchevents-expressions.html)
+[LAMBDA schedule expression 참고](https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-cloudwatchevents-expressions.html)  
+* 이외에도 aws region 등 기타 설정들 또한 자유롭게 설정하시면 됩니다.  
 
-3. 파일명을 변경해 줍니다.
-
+3. serverless-sample.yml 파일명을 변경해 줍니다.  
 `serverless-sample.yml` -> `serverless.yml`
 
 
 # Deploy
-서버리스 프레임워크를 통해 봇을 AWS 상에 배포합니다.
+서버리스 프레임워크를 통해 Swap 봇을 AWS 상에 배포합니다.
 ```
 npm run deploy:dev
 ```

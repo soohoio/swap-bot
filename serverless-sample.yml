@@ -1,5 +1,3 @@
-org: <YOUR_ORG_NAME>
-app: <YOUR_APP_NAME>
 service: swap-bot
 
 frameworkVersion: '3'
