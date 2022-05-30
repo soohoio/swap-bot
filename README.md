@@ -18,8 +18,8 @@ npm install -g serverless
 ```
 이후 설치 과정 및 AWS Credential 등록은 자세한 과정은 아래 링크를 참조해주세요.
 
-- [공식문서-설치](https://www.serverless.com/framework/docs/getting-started)
-- [공식문서-AWS연결](https://www.serverless.com/framework/docs/providers/aws/guide/credentials)
+- [공식문서 - Serverless 설치](https://www.serverless.com/framework/docs/getting-started)
+- [공식문서 - AWS 연결](https://www.serverless.com/framework/docs/providers/aws/guide/credentials)
 - [블로그](https://velog.io/@jeffyoun/Serverless-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC-%EC%82%AC%EC%9A%A9%ED%95%B4%EC%84%9C-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0)
 
 ## Installation
