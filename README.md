@@ -60,7 +60,7 @@ npm install
 토큰명은 체인 상의 token symbol을 기입해 주시기 바랍니다.
 
 ## serverless 설정
-#### 0. serverless-sample.yml 파일명을 변경해 줍니다.  
+#### 0. `serverless-sample.yml`의 파일명을 변경해 줍니다.  
 `serverless-sample.yml` -> `serverless.yml`
 
 
