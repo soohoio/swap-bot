@@ -11,7 +11,7 @@ Klayswap 기반 자동 토큰 스왑 봇
 - Serverless 프레임워크가 설치되어야 합니다.
 - AWS Credential이 필요합니다.
 
-## Serverless Installation
+## Setup (Serverless & AWS Credential)
 ```
 npm install -g serverless
 ```
