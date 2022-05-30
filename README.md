@@ -12,10 +12,11 @@ Klayswap 기반 자동 토큰 스왑 봇
 - AWS Credential이 필요합니다.
 
 ## Setup (Serverless & AWS Credential)
+#### Serverless 설치
 ```
 npm install -g serverless
 ```
-이후 자세한 과정은 아래 링크를 참조해주세요.
+이후 설치 과정 및 AWS Credential 등록은 자세한 과정은 아래 링크를 참조해주세요.
 
 - [공식문서-설치](https://www.serverless.com/framework/docs/getting-started)
 - [공식문서-AWS연결](https://www.serverless.com/framework/docs/providers/aws/guide/credentials)
