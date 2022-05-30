@@ -60,7 +60,11 @@ npm install
 토큰명은 체인 상의 token symbol을 기입해 주시기 바랍니다.
 
 ## serverless 설정
-1. 먼저 org와 application name을 설정해 주어야 합니다.  
+#### 0. serverless-sample.yml 파일명을 변경해 줍니다.  
+`serverless-sample.yml` -> `serverless.yml`
+
+
+#### 1. 먼저 org와 application name을 설정해 주어야 합니다.  
   swap-bot 루트 폴더로 이동 후 아래 명령어를 실행합니다.
 ```
 serverless
@@ -75,8 +79,7 @@ serverless
 org와 app name 설정 이후 [Serverless 대시보드](https://app.serverless.com/)에서 app name이 정상적으로 등록되었는지 확인해 주세요.
 
 
-
-2. (serverless-sample.yml 37~38행) Swap 봇이 주기적으로 실행될 시간을 설정해 줍니다.
+#### 2. (serverless-sample.yml 37~38행) Swap 봇이 주기적으로 실행될 시간을 설정해 줍니다.
 ```
 events:
   # 매주 월요일 오전 11:00(한국시) 실행 (02:00UTC)
@@ -86,8 +89,6 @@ events:
 [LAMBDA schedule expression 참고](https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-cloudwatchevents-expressions.html)  
 * 이외에도 aws region 등 기타 설정들 또한 자유롭게 설정하시면 됩니다.  
 
-3. serverless-sample.yml 파일명을 변경해 줍니다.  
-`serverless-sample.yml` -> `serverless.yml`
 
 
 # Deploy
