@@ -41,7 +41,7 @@ npm install
   - **KAS_SECRET_ACCESS_KEY**
   - **EOA_ADDRESS** : 출금 지갑(스왑 대상 토큰이 들어있는 지갑)의 주소
   - **EOA_PRIVATE_KEY** : 출금 지갑의 Private Key
-  - **DESTINATION_ADDRESS** : 송금 지갑의 주소
+  - **DESTINATION_ADDRESS** : 송금 지갑의 주소(출금 지갑 주소와 동일한 주소로 설정할 수 있습니다.)
   - **FROM_TOKENS** : 스왑을 진행할 토큰 목록. (토큰명을 쉼표( **,** )로 분리하여 작성해 주시기 바랍니다.)
   - **TO_TOKEN** : 어떤 토큰으로 스왑을 진행할 것인지 (토큰명)
   - **SLIPPAGE** : 슬리피지 제한 [default: 0.003(0.3%)]
