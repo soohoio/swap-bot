@@ -1,18 +1,20 @@
-const {caver, KLAYSWAP_ROUTER_ADDRESS, ZERO_ADDRESS, Tokens, EOA} = require("../swap.config")
+const {caver, KLAYSWAP_ROUTER_ADDRESS, ZERO_ADDRESS, Tokens} = require("../swap.config")
 const KlayswapABI = require("../abi/klayswap.abi.json")
 const ERC20ABI = require("../abi/erc20.min.json")
 
 
 /**
  * 
- * @param {string} eoa 
+ * @param {string} from_account 
+ * @param {string} to_account
  * @param {string} amountIn 
  * @param {string} amountOutMin 
  * @param {string[]} path 
  * @param {Date} deadline 
  */
 module.exports.swapCall = async function(
-    eoa,
+    from_account,
+    to_account,
     amountIn,
     amountOutMin,
     path,
@@ -27,7 +29,7 @@ module.exports.swapCall = async function(
         amountIn,
         amountOutMin,
         tokenAddressPath,
-        eoa,
+        to_account,
         deadlineTimestamp
     ]
 
@@ -43,7 +45,7 @@ module.exports.swapCall = async function(
                 .methods
                 .approve(KLAYSWAP_ROUTER_ADDRESS, amountIn)
                 .send({
-                    from: EOA,
+                    from: from_account,
                     gas: 500000,
                 })
         } catch (error) {
@@ -58,7 +60,7 @@ module.exports.swapCall = async function(
     try {
         const signedTx = await routerContract.send(
             {
-                from: eoa,
+                from: from_account,
                 gas: 1000000,
                 value
             },

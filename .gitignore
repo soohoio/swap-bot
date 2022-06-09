@@ -1,5 +1,7 @@
 node_modules
 .serverless
 data/pools-sample.json
+data/pools-dev.json
+data/pools-prod.json
 serverless.yml
 config/config.js

@@ -14,6 +14,8 @@
     "update:prod": "cross-env STAGE=prod node ./src/updatePools",
     "swap:dev": "sls invoke -s dev -f swap",
     "swap:prod": "sls invoke -s prod -f swap",
+    "swap:dev:local": "sls invoke local -s dev -f swap",
+    "swap:prod:local": "sls invoke local -s prod -f swap",
     "predeploy:dev": "npm run update:dev",
     "predeploy:prod": "npm run update:prod",
     "deploy:dev": "sls deploy -s dev",

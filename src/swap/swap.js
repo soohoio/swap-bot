@@ -1,4 +1,4 @@
-const { Tokens, EOA } = require('../swap.config')
+const { Tokens, EOA, DESTINATION_ADDRESS } = require('../swap.config')
 const { searchPaths } = require('./searchPaths')
 const { getLiquidityAndFee } = require('./getLiquidityAndFee')
 const { calcPaths } = require('./calcPaths')
@@ -36,6 +36,7 @@ module.exports.swap = async function(fromIndex, toIndex, amount){
 
     await swapCall(
         EOA,
+        DESTINATION_ADDRESS,
         amount.toString(),
         minOut,
         output.path,
