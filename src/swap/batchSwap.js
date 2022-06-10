@@ -3,9 +3,12 @@ const Big = require('big.js')
 const { envValidator } = require('../env-validators/env-validator')
 const ERC20ABI = require("../abi/erc20.min.json")
 const { swap } = require("./swap")
+const { withdrawWKLAY } = require("./withdrawWKLAY")
 
 
 module.exports.batchSwap = async function(){
+    await withdrawWKLAY(EOA);
+
     const {fromIndexes, toIndex} = envValidator(
         Tokens,
         process.env.FROM_TOKENS,

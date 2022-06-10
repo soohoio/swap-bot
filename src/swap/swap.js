@@ -4,6 +4,7 @@ const { getLiquidityAndFee } = require('./getLiquidityAndFee')
 const { calcPaths } = require('./calcPaths')
 const Big = require('big.js')
 const { swapCall } = require('./swapCall')
+const { withdrawWKLAY } = require('./withdrawWKLAY')
 
 
 /**
@@ -13,6 +14,10 @@ const { swapCall } = require('./swapCall')
  * @param {Big} amount 
  */
 module.exports.swap = async function(fromIndex, toIndex, amount){
+    await withdrawWKLAY(EOA);
+    return;
+
+
     const paths = searchPaths(fromIndex, toIndex)
     if(paths.length === 0 || paths[0].length < 2){
         throw Error(`Path from ${Tokens[fromIndex].name} to ${Tokens[toIndex].name} not exists.`);
