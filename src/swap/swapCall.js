@@ -61,18 +61,15 @@ module.exports.swapCall = async function(
         const signedTx = await routerContract.send(
             {
                 from: from_account,
-                gas: 1000000,
+                gas: 1500000,
                 value
             },
             methodName,
             ...params
         )
-        console.log(`Swap transaction succeed: (tx: ${signedTx.transactionHash})`)
+        console.log("\x1b[32m",`Swap transaction succeed: (tx: ${signedTx.transactionHash})\n`, '\x1b[0m')
     } catch (error) {
-
-        console.log(`Failed to swap: ${Tokens[path[0]].name}. Slippage may have occurred due to price fluctuations.`)
+        console.log("\x1b[31m", `Failed to swap: ${Tokens[path[0]].name}. Slippage may have occurred due to price fluctuations.\n`, '\x1b[0m')
         return;
     }
-
-
 }

@@ -27,7 +27,7 @@ module.exports.batchSwap = async function(){
             balance = await caver.klay.getBalance(EOA)
             amount = Big(balance).sub( Big(RESERVED_KLAY).mul(1E18) )
         }
-        console.log(`Balance Of ${name} : ${balance}`)
+        console.log(`\nBalance Of ${name} : ${balance}`)
         
         if(+amount <= 0)
             continue;
