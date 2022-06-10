@@ -1,4 +1,4 @@
-const { Tokens, SOURCE_ADDRESS, DESTINATION_ADDRESS } = require('../swap.config')
+const { Tokens } = require('../swap.config')
 const { searchPaths } = require('./searchPaths')
 const { getLiquidityAndFee } = require('./getLiquidityAndFee')
 const { calcPaths } = require('./calcPaths')
@@ -11,6 +11,9 @@ const { swapCall } = require('./swapCall')
  * @param {number} fromIndex 
  * @param {number} toIndex 
  * @param {Big} amount 
+ * @param {string} source      출금 계좌 
+ * @param {string} destination 송금 계좌 
+ * 
  */
 module.exports.swap = async function(fromIndex, toIndex, amount, source, destination){
 
@@ -23,24 +26,21 @@ module.exports.swap = async function(fromIndex, toIndex, amount, source, destina
 
     const sortedPaths = calcPaths(amount, paths, liquidities, fees);
     const output = sortedPaths[0];
-    const now = new Date();
+    const deadline = new Date();
     // 3분 뒤
-    now.setMinutes(now.getMinutes()+3);
+    deadline.setMinutes(deadline.getMinutes()+3);
 
     const minOut = Big(output.amount).mul(1 - +process.env.SLIPPAGE).round().toString();
 
-    console.log(
-        `${amount.toString()} ${Tokens[fromIndex].name} will be swapped at least ${minOut.toString()} ${Tokens[toIndex].name}\n`
-        +
-        `Path: ${output.path.map(tId => Tokens[tId].name).join(' -> ')}`
-    )
+    console.log(`${amount.toString()} ${Tokens[fromIndex].name} will be swapped at least ${minOut.toString()} ${Tokens[toIndex].name}`)
+    console.log("\x1b[36m",`Path: ${output.path.map(tId => Tokens[tId].name).join(' -> ')}`)
 
     await swapCall(
-        SOURCE_ADDRESS,
-        DESTINATION_ADDRESS,
+        source,
+        destination,
         amount.toString(),
         minOut,
         output.path,
-        now
+        deadline
     )
 }

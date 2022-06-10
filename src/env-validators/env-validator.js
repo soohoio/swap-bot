@@ -16,8 +16,8 @@ module.exports.envValidator = function(tokens, FROM_TOKENS, TO_TOKEN, SLIPPAGE, 
         throw Error(`Incorrect SLIPPAGE: ${SLIPPAGE}`)
     }
 
-    if( isNaN(+RESERVED_KLAY) || RESERVED_KLAY < 1){
-        throw Error(`RESERVED_KLAY should be more than 1 KLAY. (Current: ${RESERVED_KLAY})`)
+    if( isNaN(+RESERVED_KLAY) || RESERVED_KLAY < 0.5){
+        throw Error(`RESERVED_KLAY should be more than 0.5 KLAY. (Current: ${RESERVED_KLAY})`)
     }
     
     const fromIndexes = [];

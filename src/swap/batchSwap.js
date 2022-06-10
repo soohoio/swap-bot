@@ -1,4 +1,4 @@
-const { caver,Tokens, ZERO_ADDRESS, RESERVED_KLAY, SOURCE_ADDRESS } = require('../swap.config')
+const { caver,Tokens, ZERO_ADDRESS, RESERVED_KLAY, SOURCE_ADDRESS, DESTINATION_ADDRESS } = require('../swap.config')
 const Big = require('big.js')
 const { envValidator } = require('../env-validators/env-validator')
 const ERC20ABI = require("../abi/erc20.min.json")
@@ -17,9 +17,15 @@ module.exports.batchSwap = async function(){
         process.env.RESERVED_KLAY,
     )
 
+    // 1. 먼저 교환해야 할 토큰의 balance를 구하여 보낼 양(amount)을 계산한다.
+    // amount가 0이면 교환하지 않음.
+    // 교환 대상 토큰이 2개 이상이면 일단 SOURCE로 스왑한 후 DESTINATION으로 일괄 전송
+    // 1개이면 바로 SOURCE -> DESTINATION으로 전송
+
+    const sendAmounts = []
+    // 먼저 balance를 취합한다.
     for await (const from of fromIndexes) {
-        // 1. Get Token Balance
-        const {name, address} = Tokens[from]
+        const {address, name} = Tokens[from]
         let balance, amount;
         
         if(address !== ZERO_ADDRESS){   // ERC20 TOKEN
@@ -29,12 +35,63 @@ module.exports.batchSwap = async function(){
         else {                          // KLAY
             balance = await caver.klay.getBalance(SOURCE_ADDRESS)
             amount = Big(balance).sub( Big(RESERVED_KLAY).mul(1E18) )
+            amount = amount.gt(Big(0)) ? amount : Big(0)
         }
-        console.log(`\nBalance Of ${name} : ${balance}`)
-        
+
+        console.log(`Balance Of ${name} : ${balance}`)
+        sendAmounts.push(amount)
+    }
+    console.log('\n-------------------------------\n')
+
+    const toSendCount = sendAmounts.filter(amount => amount.toNumber() > 0).length
+    
+    // 스왑 결과 토큰의 스왑 전 balance
+    const getToTokenBalance = async () => {
+        if(toIndex === 0){
+            return await caver.klay.getBalance(SOURCE_ADDRESS)
+        } else {
+            const TO_TOKEN_CONTRACT = caver.contract.create(ERC20ABI, Tokens[toIndex].address)
+            return await TO_TOKEN_CONTRACT.methods.balanceOf(SOURCE_ADDRESS).call()
+        }
+    }
+    let beforeBalance = await getToTokenBalance()
+
+    if(!toSendCount){
+        console.log("No tokens to swap.")
+        return;
+    }
+
+    for (let i = 0; i < fromIndexes.length; i++) {
+        const from = fromIndexes[i]
+        const amount = sendAmounts[i];
+
         if(+amount <= 0)
             continue;
 
-        await swap(from, toIndex, amount);
+        if(toSendCount === 1){
+            // 교환하는 토큰이 하나인 경우 바로 DESTINATION으로 보냄
+            await swap(from, toIndex, amount, SOURCE_ADDRESS, DESTINATION_ADDRESS);
+        } else {
+            await swap(from, toIndex, amount, SOURCE_ADDRESS, SOURCE_ADDRESS);
+        }
+    }
+
+    // DESTINATION으로 토큰 일괄 전송
+    if(toSendCount > 1){
+        const afterBalance = await getToTokenBalance()
+        const amount = Big(afterBalance).sub(Big(beforeBalance)).toString()
+        let tx;
+        if(toIndex === 0){
+            tx = await caver.klay.sendTransaction({
+                from: SOURCE_ADDRESS,
+                to:SOURCE_ADDRESS,
+                value: amount
+            })
+        }
+        else {
+            const TO_TOKEN_CONTRACT = caver.contract.create(ERC20ABI, Tokens[toIndex].address)
+            tx = await TO_TOKEN_CONTRACT.methods.transfer(DESTINATION_ADDRESS, amount)
+        }
+        console.log(`${amount} ${Tokens[toIndex].name} transferred to ${DESTINATION_ADDRESS} (tx: ${tx.transactionHash})`)
     }
 }
