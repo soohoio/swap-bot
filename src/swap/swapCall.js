@@ -4,7 +4,6 @@ const ERC20ABI = require("../abi/erc20.min.json")
 
 
 /**
- * 
  * @param {string} from_account 
  * @param {string} to_account
  * @param {string} amountIn 
@@ -58,7 +57,7 @@ module.exports.swapCall = async function(
     }
 
     try {
-        const signedTx = await routerContract.send(
+        const tx = await routerContract.send(
             {
                 from: from_account,
                 gas: 1500000,
@@ -67,7 +66,7 @@ module.exports.swapCall = async function(
             methodName,
             ...params
         )
-        console.log("\x1b[32m",`Swap transaction succeed: (tx: ${signedTx.transactionHash})\n`, '\x1b[0m')
+        console.log("\x1b[32m",`Swap transaction succeed: (tx: ${tx.transactionHash})\n`, '\x1b[0m')
     } catch (error) {
         console.log("\x1b[31m", `Failed to swap: ${Tokens[path[0]].name}. Slippage may have occurred due to price fluctuations.\n`, '\x1b[0m')
         return;

@@ -9,7 +9,8 @@ module.exports.CONFIG = (serverless) => ({
         FROM_TOKENS: "oETH,WEMIX,KDAI,KSP,KLAY",
         TO_TOKEN: "oUSDT",
         SLIPPAGE: 0.003,
-        RESERVED_KLAY: 50   // 50 KLAY 
+        RESERVED_KLAY: 50,   // 50 KLAY
+        WKLAY_ADDRESS: "0xBFD8eB155A69189C6e5d0c679a90b0350E8f5506"  // optional
     },
     prod: {
         NODE_URL: 'https://node-api.klaytnapi.com/v1/klaytn',
@@ -20,7 +21,8 @@ module.exports.CONFIG = (serverless) => ({
         DESTINATION_ADDRESS: '<DESTINATION_ADDRESS>',
         FROM_TOKENS: "oETH,WEMIX,KDAI,KSP,KLAY",
         TO_TOKEN: "oUSDT",
-        SLIPPAGE: 0.01,
-        RESERVED_KLAY: 50  // 50 KLAY
+        SLIPPAGE: 0.003,
+        RESERVED_KLAY: 50,  // 50 KLAY
+        WKLAY_ADDRESS: "0xF6F6b8Bd0aC500639148f8ca5a590341A97De0DE"  // optional
     }
 });

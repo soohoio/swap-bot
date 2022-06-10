@@ -64,3 +64,4 @@ module.exports.multicall = new Multicall({
 module.exports.RESERVED_KLAY = +process.env.RESERVED_KLAY
 module.exports.EOA = process.env.EOA_ADDRESS;
 module.exports.DESTINATION_ADDRESS = process.env.DESTINATION_ADDRESS;
+module.exports.WKLAY_ADDRESS = process.env.WKLAY_ADDRESS;
