@@ -19,8 +19,8 @@ provider:
     NODE_URL: ${self:custom.CONFIG.${self:custom.STAGE}.NODE_URL}
     KAS_ACCESS_KEY_ID: ${self:custom.CONFIG.${self:custom.STAGE}.KAS_ACCESS_KEY_ID}
     KAS_SECRET_ACCESS_KEY: ${self:custom.CONFIG.${self:custom.STAGE}.KAS_SECRET_ACCESS_KEY}
-    EOA_ADDRESS: ${self:custom.CONFIG.${self:custom.STAGE}.EOA_ADDRESS}
-    EOA_PRIVATE_KEY: ${self:custom.CONFIG.${self:custom.STAGE}.EOA_PRIVATE_KEY}
+    SOURCE_ADDRESS: ${self:custom.CONFIG.${self:custom.STAGE}.SOURCE_ADDRESS}
+    SOURCE_PRIVATE_KEY: ${self:custom.CONFIG.${self:custom.STAGE}.SOURCE_PRIVATE_KEY}
     DESTINATION_ADDRESS: ${self:custom.CONFIG.${self:custom.STAGE}.DESTINATION_ADDRESS}
     FROM_TOKENS: ${self:custom.CONFIG.${self:custom.STAGE}.FROM_TOKENS}
     TO_TOKEN: ${self:custom.CONFIG.${self:custom.STAGE}.TO_TOKEN}

@@ -1,5 +1,5 @@
 const Big = require('big.js')
-const { caver,Tokens, ZERO_ADDRESS, EOA } = require('../swap.config')
+const { caver,Tokens, ZERO_ADDRESS, SOURCE_ADDRESS, DESTINATION_ADDRESS } = require('../swap.config')
 const ERC20ABI = require("../abi/erc20.min.json")
 const { swap } = require('./swap')
 
@@ -15,11 +15,6 @@ module.exports.singleSwap = async function(){
     const from = process.env.from
     const to = process.env.to
     const amount = process.env.amount
-
-    console.log('asdads')
-    console.log(from)
-    console.log(to)
-    console.log(amount)
 
     if(!from || !to || !amount)
         throw Error('Please check the environment variable [from, to, amount] again.')
@@ -38,9 +33,9 @@ module.exports.singleSwap = async function(){
 
     let balance;
     if(Tokens[fromIndex].address !== ZERO_ADDRESS){  // ERC20 TOKEN
-        balance = await caver.contract.create(ERC20ABI, Tokens[fromIndex].address).methods.balanceOf(EOA).call()
+        balance = await caver.contract.create(ERC20ABI, Tokens[fromIndex].address).methods.balanceOf(SOURCE_ADDRESS).call()
     } else {  // KLAY
-        balance = await caver.klay.getBalance(EOA)
+        balance = await caver.klay.getBalance(SOURCE_ADDRESS)
     }
 
     console.log(`Your Balance: ${balance} ${from}`)
@@ -49,5 +44,5 @@ module.exports.singleSwap = async function(){
     if(+amount > +balance)
         throw Error("Insufficient balance")
 
-    await swap(fromIndex, toIndex, Big(amount))
+    await swap(fromIndex, toIndex, Big(amount), SOURCE_ADDRESS, DESTINATION_ADDRESS)
 }
