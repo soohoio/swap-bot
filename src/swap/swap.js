@@ -1,10 +1,9 @@
-const { Tokens, EOA, DESTINATION_ADDRESS } = require('../swap.config')
+const { Tokens, SOURCE_ADDRESS, DESTINATION_ADDRESS } = require('../swap.config')
 const { searchPaths } = require('./searchPaths')
 const { getLiquidityAndFee } = require('./getLiquidityAndFee')
 const { calcPaths } = require('./calcPaths')
 const Big = require('big.js')
 const { swapCall } = require('./swapCall')
-const { withdrawWKLAY } = require('./withdrawWKLAY')
 
 
 /**
@@ -13,10 +12,7 @@ const { withdrawWKLAY } = require('./withdrawWKLAY')
  * @param {number} toIndex 
  * @param {Big} amount 
  */
-module.exports.swap = async function(fromIndex, toIndex, amount){
-    await withdrawWKLAY(EOA);
-    return;
-
+module.exports.swap = async function(fromIndex, toIndex, amount, source, destination){
 
     const paths = searchPaths(fromIndex, toIndex)
     if(paths.length === 0 || paths[0].length < 2){
@@ -40,7 +36,7 @@ module.exports.swap = async function(fromIndex, toIndex, amount){
     )
 
     await swapCall(
-        EOA,
+        SOURCE_ADDRESS,
         DESTINATION_ADDRESS,
         amount.toString(),
         minOut,

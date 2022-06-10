@@ -1,5 +1,5 @@
 const Big = require('big.js')
-const { caver,Tokens, ZERO_ADDRESS, EOA } = require('../swap.config')
+const { caver,Tokens, ZERO_ADDRESS, SOURCE_ADDRESS } = require('../swap.config')
 const ERC20ABI = require("../abi/erc20.min.json")
 const { swap } = require('./swap')
 
@@ -38,9 +38,9 @@ module.exports.singleSwap = async function(){
 
     let balance;
     if(Tokens[fromIndex].address !== ZERO_ADDRESS){  // ERC20 TOKEN
-        balance = await caver.contract.create(ERC20ABI, Tokens[fromIndex].address).methods.balanceOf(EOA).call()
+        balance = await caver.contract.create(ERC20ABI, Tokens[fromIndex].address).methods.balanceOf(SOURCE_ADDRESS).call()
     } else {  // KLAY
-        balance = await caver.klay.getBalance(EOA)
+        balance = await caver.klay.getBalance(SOURCE_ADDRESS)
     }
 
     console.log(`Your Balance: ${balance} ${from}`)

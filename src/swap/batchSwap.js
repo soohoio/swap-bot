@@ -1,4 +1,4 @@
-const { caver,Tokens, ZERO_ADDRESS, RESERVED_KLAY, EOA } = require('../swap.config')
+const { caver,Tokens, ZERO_ADDRESS, RESERVED_KLAY, SOURCE_ADDRESS } = require('../swap.config')
 const Big = require('big.js')
 const { envValidator } = require('../env-validators/env-validator')
 const ERC20ABI = require("../abi/erc20.min.json")
@@ -7,7 +7,7 @@ const { withdrawWKLAY } = require("./withdrawWKLAY")
 
 
 module.exports.batchSwap = async function(){
-    await withdrawWKLAY(EOA);
+    await withdrawWKLAY(SOURCE_ADDRESS);
 
     const {fromIndexes, toIndex} = envValidator(
         Tokens,
@@ -23,11 +23,11 @@ module.exports.batchSwap = async function(){
         let balance, amount;
         
         if(address !== ZERO_ADDRESS){   // ERC20 TOKEN
-            balance = await caver.contract.create(ERC20ABI, address).methods.balanceOf(EOA).call()
+            balance = await caver.contract.create(ERC20ABI, address).methods.balanceOf(SOURCE_ADDRESS).call()
             amount = Big(balance)
         } 
         else {                          // KLAY
-            balance = await caver.klay.getBalance(EOA)
+            balance = await caver.klay.getBalance(SOURCE_ADDRESS)
             amount = Big(balance).sub( Big(RESERVED_KLAY).mul(1E18) )
         }
         console.log(`\nBalance Of ${name} : ${balance}`)
