@@ -7,7 +7,6 @@ const { withdrawWKLAY } = require("./withdrawWKLAY")
 
 
 module.exports.batchSwap = async function(){
-    await withdrawWKLAY(SOURCE_ADDRESS);
 
     const {fromIndexes, toIndex} = envValidator(
         Tokens,
@@ -16,6 +15,9 @@ module.exports.batchSwap = async function(){
         process.env.SLIPPAGE,
         process.env.RESERVED_KLAY,
     )
+
+    await withdrawWKLAY(SOURCE_ADDRESS);
+
 
     // 1. 먼저 교환해야 할 토큰의 balance를 구하여 보낼 양(amount)을 계산한다.
     // amount가 0이면 교환하지 않음.
