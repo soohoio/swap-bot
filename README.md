@@ -53,7 +53,7 @@ npm install
 
   > 본 Bot은 FROM_TOKEN에 해당하는 **잔고 전체(KLAY 제외)** 를 TO_TOKEN으로 스왑합니다.  
   만약 `FROM_TOKENS=KDAI,oETH,KLAY` 이고 `TO_TOKEN=oUSDT` 라면, swap 실행 시 지갑 내 KDAI와 oETH **토큰 전량** 이 oUSDT로 스왑되어 **DESTINATION 계좌** 로 옮겨지고,
-  **SOURCE 계좌** 에는 **(RESERVED_KLAY - 가스비)** 만큼의 KLAY만 남게 됩니다.
+  **SOURCE 계좌** 에는 **(RESERVED_KLAY - 가스비)** 만큼의 KLAY만 남게 됩니다.  
 
 2. 파일명을 변경해 줍니다.
 
