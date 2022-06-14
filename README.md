@@ -126,7 +126,8 @@ npm run swap:prod
 
 # 보내는 토큰 / 받는 토큰 / 보내는 토큰 양을 지정하여 스왑 함수 실행
 * 로컬에서만 작동 가능합니다.  
-singleSwap 함수를 실행하기 전에 반드시 updatePools을 진행해야 합니다. (빌드 시 자동으로 진행됩니다.)
+* singleSwap 함수를 실행하기 전에 반드시 updatePools을 진행해야 합니다. (빌드 시 자동으로 진행됩니다.)
+* <from> 토큰 <amount>만큼을 <to>토큰으로 스왑합니다.
 ```
 from=KLEVA to=oUSDT amount=100000000000 npm run singleSwap:dev:local
 ```
