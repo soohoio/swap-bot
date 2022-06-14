@@ -30,7 +30,7 @@ module.exports.swap = async function(fromIndex, toIndex, amount, source, destina
     // 3분 뒤
     deadline.setMinutes(deadline.getMinutes()+3);
 
-    const minOut = Big(output.amount).mul(1 - +process.env.SLIPPAGE).round().toString();
+    const minOut = Big(output.amount).mul(1 - +process.env.SLIPPAGE).round().toFixed();
 
     console.log(`${amount.toString()} ${Tokens[fromIndex].name} will be swapped at least ${minOut.toString()} ${Tokens[toIndex].name}`)
     console.log("\x1b[36m",`Path: ${output.path.map(tId => Tokens[tId].name).join(' -> ')}`)
@@ -38,7 +38,7 @@ module.exports.swap = async function(fromIndex, toIndex, amount, source, destina
     await swapCall(
         source,
         destination,
-        amount.toString(),
+        amount.toFixed(),
         minOut,
         output.path,
         deadline

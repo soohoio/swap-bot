@@ -20,8 +20,6 @@
     "predeploy:prod": "npm run update:prod",
     "deploy:dev": "sls deploy -s dev",
     "deploy:prod": "sls deploy -s prod",
-    "singleSwap:dev": "sls invoke -s dev -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\"",
-    "singleSwap:prod": "sls invoke -s prod -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\"",
     "singleSwap:dev:local": "sls invoke local -s dev -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\"",
     "singleSwap:prod:local": "sls invoke local -s prod -f singleSwap --param=\"from=$from\" --param=\"to=$to\" --param=\"amount=$amount\""
   },

@@ -16,17 +16,17 @@ module.exports.withdrawWKLAY = async (account) => {
         if(!+balance)
             return;
 
-        const signedTx =await wklayContract
+        const signedTx = await wklayContract
             .methods
-            .withdraw(balance)
+            .withdraw(balance.toString())
             .send({
                 from: account,
                 gas: 50000
             })
         
-        console.log("\x1b[32m", `Withdraw ${balance} WKLAY succeed: (tx: ${signedTx.transactionHash})\n`, '\x1b[0m')
+        console.log("\x1b[32m", `\nWithdraw ${balance} WKLAY succeed: (tx: ${signedTx.transactionHash})\n`, '\x1b[0m')
     } catch (error) {
-        console.log("\x1b[31m", `Failed to withdraw WKLAY`, '\x1b[0m')
+        console.log("\x1b[31m", `\nFailed to withdraw WKLAY`, '\x1b[0m')
         console.log(error)   
     }
 }

@@ -45,7 +45,7 @@ module.exports.swapCall = async function(
                 .approve(KLAYSWAP_ROUTER_ADDRESS, amountIn)
                 .send({
                     from: from_account,
-                    gas: 500000,
+                    gas: 100000,
                 })
         } catch (error) {
             console.log(`Failed to approve: ${Tokens[path[0]].name}`)

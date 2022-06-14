@@ -56,7 +56,7 @@ module.exports.batchSwap = async function(){
             return await TO_TOKEN_CONTRACT.methods.balanceOf(SOURCE_ADDRESS).call()
         }
     }
-    let beforeBalance = await getToTokenBalance()
+
 
     if(!toSendCount){
         console.log("No tokens to swap.")
@@ -78,21 +78,32 @@ module.exports.batchSwap = async function(){
         }
     }
 
+
     // DESTINATION으로 토큰 일괄 전송
     if(toSendCount > 1){
         const afterBalance = await getToTokenBalance()
-        const amount = Big(afterBalance).sub(Big(beforeBalance)).toString()
+        const amount = Big(afterBalance).toString()
         let tx;
         if(toIndex === 0){
-            tx = await caver.klay.sendTransaction({
+            const vt = caver.transaction.valueTransfer.create({
                 from: SOURCE_ADDRESS,
-                to:SOURCE_ADDRESS,
-                value: amount
+                to: DESTINATION_ADDRESS,
+                value: amount,
+                gas: 25000
+            })
+
+            tx = caver.wallet.sign(SOURCE_ADDRESS, vt).then(signed => {
+                return caver.rpc.klay.sendRawTransaction(signed)
             })
         }
         else {
             const TO_TOKEN_CONTRACT = caver.contract.create(ERC20ABI, Tokens[toIndex].address)
-            tx = await TO_TOKEN_CONTRACT.methods.transfer(DESTINATION_ADDRESS, amount)
+            tx = await TO_TOKEN_CONTRACT
+                .methods.transfer(DESTINATION_ADDRESS, amount)
+                .send({
+                    from: SOURCE_ADDRESS,
+                    gas: 80000
+                })
         }
         console.log(`${amount} ${Tokens[toIndex].name} transferred to ${DESTINATION_ADDRESS} (tx: ${tx.transactionHash})`)
     }
