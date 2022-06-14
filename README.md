@@ -52,7 +52,7 @@ npm install
     - WKLAY_ADDRESS를 입력하면, 스왑을 진행하기 전 가지고 있는 모든 WKLAY를 KLAY로 인출하는 과정을 수행합니다.
 
   > 본 Bot은 FROM_TOKEN에 해당하는 **잔고 전체(KLAY 제외)** 를 TO_TOKEN으로 스왑합니다.  
-  만약 `FROM_TOKEN=KDAI,oETH,KLAY` 이고 `TO_TOKEN=oUSDT` 라면, swap 실행 시 지갑 내 KDAI와 oETH **토큰 전량** 이 oUSDT로 스왑되어 <DESTINATION> 계좌로 옮겨지고,
+  만약 `FROM_TOKENS=KDAI,oETH,KLAY` 이고 `TO_TOKEN=oUSDT` 라면, swap 실행 시 지갑 내 KDAI와 oETH **토큰 전량** 이 oUSDT로 스왑되어 <DESTINATION> 계좌로 옮겨지고,
   **SOURCE_ADDRESS** 에는 **(RESERVED_KLAY - 가스비)** 만큼의 KLAY만 남게 됩니다.
 
 2. 파일명을 변경해 줍니다.
