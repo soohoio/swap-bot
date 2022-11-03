@@ -1,5 +1,7 @@
-const { caver, WKLAY_ADDRESS} = require("../swap.config")
+const { caver, WKLAY_ADDRESS } = require("../swap.config")
 const abi = require("../abi/wklay.abi.json")
+const Big = require('big.js');
+const { messageBox } = require("../utils/messageBox");
 
 /**
  * 
@@ -18,13 +20,16 @@ module.exports.withdrawWKLAY = async (account) => {
 
         const signedTx = await wklayContract
             .methods
-            .withdraw(balance.toString())
+            .withdraw(Big(balance).toFixed())
             .send({
                 from: account,
                 gas: 50000
             })
         
         console.log("\x1b[32m", `\nWithdraw ${balance} WKLAY succeed: (tx: ${signedTx.transactionHash})\n`, '\x1b[0m')
+
+        messageBox.add(`*[WKLAY 인출]* \n ${balance} WKLAY를 KLAY로 인출했습니다. (tx: ${signedTx.transactionHash})\n`)
+        
     } catch (error) {
         console.log("\x1b[31m", `\nFailed to withdraw WKLAY`, '\x1b[0m')
         console.log(error)   

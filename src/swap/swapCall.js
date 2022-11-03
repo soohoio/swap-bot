@@ -1,6 +1,7 @@
 const {caver, KLAYSWAP_ROUTER_ADDRESS, ZERO_ADDRESS, Tokens} = require("../swap.config")
 const KlayswapABI = require("../abi/klayswap.abi.json")
 const ERC20ABI = require("../abi/erc20.min.json")
+const { messageBox } = require('../utils/messageBox')
 
 
 /**
@@ -66,9 +67,12 @@ module.exports.swapCall = async function(
             methodName,
             ...params
         )
+
         console.log("\x1b[32m",`Swap transaction succeed: (tx: ${tx.transactionHash})\n`, '\x1b[0m')
+        messageBox.add(`트랜잭션에 성공했습니다. (tx: ${tx.transactionHash})\n\n`)
     } catch (error) {
         console.log("\x1b[31m", `Failed to swap: ${Tokens[path[0]].name}. Slippage may have occurred due to price fluctuations.\n`, '\x1b[0m')
+        messageBox.add(`트랜잭션에 실패했습니다. 가격 변동으로 인해 스왑이 진행되지 않았을 수 있습니다.\n\n`)
         return;
     }
 }

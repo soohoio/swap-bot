@@ -4,6 +4,8 @@ const { envValidator } = require('../env-validators/env-validator')
 const ERC20ABI = require("../abi/erc20.min.json")
 const { swap } = require("./swap")
 const { withdrawWKLAY } = require("./withdrawWKLAY")
+const { messageBox } = require('../utils/messageBox')
+const { sendKleva } = require('../send-kleva')
 
 
 module.exports.batchSwap = async function(){
@@ -16,8 +18,9 @@ module.exports.batchSwap = async function(){
         process.env.RESERVED_KLAY,
     )
 
-    await withdrawWKLAY(SOURCE_ADDRESS);
+    messageBox.add(`*[Swap Bot]* 스왑 봇이 실행되었습니다. \n`)
 
+    await withdrawWKLAY(SOURCE_ADDRESS);
 
     // 1. 먼저 교환해야 할 토큰의 balance를 구하여 보낼 양(amount)을 계산한다.
     // amount가 0이면 교환하지 않음.
@@ -106,5 +109,11 @@ module.exports.batchSwap = async function(){
                 })
         }
         console.log(`${amount} ${Tokens[toIndex].name} transferred to ${DESTINATION_ADDRESS} (tx: ${tx.transactionHash})`)
+        messageBox.add(`*[일괄 전송]* ${amount} ${Tokens[toIndex].name}가 ${DESTINATION_ADDRESS}으로 전송되었습니다.\n(tx: ${tx.transactionHash})`)
     }
+
+    // KLEVA는 그냥 전송.
+    await sendKleva();
+
+    await messageBox.send()
 }

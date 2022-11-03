@@ -7,7 +7,8 @@
   "dependencies": {
     "big.js": "^6.1.1",
     "caver-js": "^1.8.1",
-    "caver-multicall": "^1.0.5"
+    "caver-multicall": "^1.0.5",
+    "slack-message-tiny-bot": "^0.1.0"
   },
   "scripts": {
     "update:dev": "cross-env STAGE=dev node ./src/updatePools",
