@@ -1,4 +1,4 @@
-const { caver,Tokens, ZERO_ADDRESS, RESERVED_KLAY, SOURCE_ADDRESS, DESTINATION_ADDRESS } = require('../swap.config')
+const { caver, Tokens, ZERO_ADDRESS, RESERVED_KLAY, SOURCE_ADDRESS, DESTINATION_ADDRESS } = require('../swap.config')
 const Big = require('big.js')
 const { envValidator } = require('../env-validators/env-validator')
 const ERC20ABI = require("../abi/erc20.min.json")
